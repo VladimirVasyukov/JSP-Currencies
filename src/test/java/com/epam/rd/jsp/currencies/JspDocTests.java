@@ -189,7 +189,6 @@ class JspDocTests {
             assertEquals(expectedHeader, header);
 
             final String actual = extractData(responseDoc, selector);
-            Files.write(Paths.get("src/test/resources/ref-html/" + refFileName), actual.getBytes(StandardCharsets.UTF_8));
             final String expected = readExpected(refFileName);
             assertEquals(expected, actual);
         }
