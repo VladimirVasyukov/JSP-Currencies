@@ -21,11 +21,12 @@ public class Currencies {
 
     public Map<String, BigDecimal> getExchangeRates(String referenceCurrency) {
         BigDecimal refCurr = curs.get(referenceCurrency);
-        return new TreeMap<>(curs
+        return curs
             .entrySet()
             .stream()
             .collect(Collectors.toMap(Map.Entry::getKey,
-                value -> refCurr.divide(value.getValue(), BIG_DECIMAL_SCALE, RoundingMode.HALF_UP))));
+                value -> refCurr.divide(value.getValue(), BIG_DECIMAL_SCALE, RoundingMode.HALF_UP),
+                (m1, m2) -> m1, TreeMap::new));
     }
 
     public BigDecimal convert(BigDecimal amount, String sourceCurrency, String targetCurrency) {
